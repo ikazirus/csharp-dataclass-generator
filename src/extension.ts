@@ -87,7 +87,7 @@ export async function generateCopyWith(document: vscode.TextDocument, range: vsc
 		classProps += properties.map(p => `public ${p[1]} ${toPropertyName(p[2])} {get; private set;}`).join('\n');
 		classProps += '\n';
 
-		let constructor = `\npublic ${className}(`;
+		let constructor = `\npublic ${className}(){\n}\n\n   public ${className}(`;
 		constructor += properties.map(p => `${p[1]} ${p[2]}`).join(', ') + ') {\n';
 		constructor += properties.map(p => `    this.${toPropertyName(p[2])} = ${p[2]};`).join('\n') + '\n';
 		constructor += '}\n';
