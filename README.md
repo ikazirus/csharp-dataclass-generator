@@ -1,12 +1,13 @@
 # csharp-copywith README
 
 This is a VS Code extension to generate DataClass in C# (Constructor,CopyWith,ToString).
-
-To install download the extension from "Download" folder and run the following command.
+To install clone the repo and run following commands.
 
 ```sh
-code --install-extension /path/to/csharp-copywith-0.0.1.vsix
-``` 
+npm install -g vsce
+vsce package
+code --install-extension ./csharp-copywith-0.0.1.vsix
+```
 
 ## Features
 
