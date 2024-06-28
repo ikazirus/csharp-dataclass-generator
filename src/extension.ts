@@ -93,21 +93,21 @@ export async function generateCopyWith(document: vscode.TextDocument, range: vsc
 		constructor += '}\n';
 
 		// Generate CopyWith method
-		let copyWithMethod = `\npublic ${className} CopyWith({ `;
-		copyWithMethod += properties.map(p => `${p[1]}? ${p[2]} = null`).join(', ') + ' }) {\n';
-		copyWithMethod += `    return new ${className} {\n`;
-		copyWithMethod += properties.map(p => `        ${toPropertyName(p[2])} = ${p[2]} ?? this.${toPropertyName(p[2])}`).join(',\n') + '\n';
-		copyWithMethod += '    };\n';
+		let copyWithMethod = `\npublic ${className} CopyWith( `;
+		copyWithMethod += properties.map(p => `${p[1]}? ${p[2]} = null`).join(', ') + ') {\n';
+		copyWithMethod += `    return new ${className} (\n`;
+		copyWithMethod += properties.map(p => `        ${p[2]}: ${p[2]} ?? this.${toPropertyName(p[2])}`).join(',\n') + '\n';
+		copyWithMethod += '    );\n';
 		copyWithMethod += '}\n';
 
 		// Generate ToString method
 		let toStringMethod = `\npublic override string ToString() {\n`;
-		toStringMethod += `    return $"${className} { `;
-		toStringMethod += properties.map(p => `${toPropertyName(p[2])} = {${toPropertyName(p[2])}}`).join(', ') + ' }";\n';
+		toStringMethod += `    return $"${className} {{ `;
+		toStringMethod += properties.map(p => `${p[2]} = {${toPropertyName(p[2])}}`).join(', ') + ' }}";\n';
 		toStringMethod += '}\n';
 
 
-		let finalClass = `public class ${className}{\n`;
+		let finalClass = `[Serializable]\npublic class ${className}{\n`;
 		finalClass += classProps + constructor + copyWithMethod + toStringMethod;
 		finalClass += `\n}`
 
